@@ -4,6 +4,7 @@ import "./globals.css";
 import Luoyan from "next/font/local";
 import Header from "@/components/layout/Header";
 import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
 const luoYan = Luoyan({
   src: "../../public/assets/fonts/ChenYuluoyan-Thin.ttf",
@@ -40,6 +41,7 @@ export default function RootLayout({
         <Header />
         <Navbar />
         <main className="flex-1 w-full">{children}</main>
+        <Footer />
       </body>
     </html>
   );
