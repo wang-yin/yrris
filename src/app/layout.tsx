@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Luoyan from "next/font/local";
 import Header from "@/components/layout/Header";
+import Navbar from "@/components/layout/Navbar";
+
+const luoYan = Luoyan({
+  src: "../../public/assets/fonts/ChenYuluoyan-Thin.ttf",
+  variable: "--font-luoyan",
+  display: "swap",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,10 +34,11 @@ export default function RootLayout({
   return (
     <html
       lang="zh-TW"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${luoYan.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-screen flex-col">
         <Header />
+        <Navbar />
         <main className="flex-1 w-full">{children}</main>
       </body>
     </html>
