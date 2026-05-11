@@ -3,11 +3,53 @@
 :root {
   --background: #f5f1e8;
   --foreground: #171717;
+  --stamp: #8a8272;
+  --postcardbg: #ebe5d6;
+  --postcardtitle: #5a464d;
+  --postcardtitlebar: #d4ccba;
+  --articletitle: #5a5446;
+  --drawer: #e8e0cf;
+  --cardcategorie: #d9d1c0;
+  --tape: #d2c8aa80;
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-stamp: var(--stamp);
+  --color-drawer: var(--drawer);
+  --color-postcardbg: var(--postcardbg);
+  --color-postcardtitle: var(--postcardtitle);
+  --color-postcardtitlebar: var(--postcardtitlebar);
+  --color-articletitle: var(--articletitle);
+  --color-cardcategorie: var(--cardcategorie);
+  --color-tape: var(--tape);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -23,7 +65,4 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
