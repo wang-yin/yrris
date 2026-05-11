@@ -30,6 +30,22 @@ export const postType = defineType({
         hotspot: true, // 這是解決圖片寬高崩壞的關鍵，讓你在後台能選中心點
       },
     },
+    defineField({
+      name: "categories",
+      title: "分類",
+      type: "array",
+      of: [defineArrayMember({ type: "reference", to: { type: "category" } })],
+    }),
+    // 標籤：純文字輸入陣列
+    defineField({
+      name: "tags",
+      title: "標籤 (Tags)",
+      type: "array",
+      of: [defineArrayMember({ type: "string" })],
+      options: {
+        layout: "tags", // 這會讓後台呈現標籤雲的形式，更好輸入
+      },
+    }),
     {
       name: "publishedAt",
       title: "發布日期",
