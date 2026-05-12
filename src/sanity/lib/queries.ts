@@ -40,3 +40,18 @@ export async function getCategoriesWithPosts(categoryTitles: string[]) {
     { categoryTitles },
   );
 }
+
+export async function getAllArticlesForArchive() {
+  return await client.fetch(`
+    *[_type == "post"] | order(publishedAt desc){
+      _id,
+      title,
+      "slug": slug.current,
+      "date": publishedAt,
+      // 這裡抓取分類的 title 陣列
+      "categories": categories[]->title,
+      // 這裡抓取標籤的 title 陣列
+      "tags": tags
+    }
+  `);
+}
