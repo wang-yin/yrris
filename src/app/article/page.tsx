@@ -66,7 +66,7 @@ export default function Article() {
         {/* 標題 */}
         <div className="mb-12">
           <h1 className="text-articletitle font-(family-name:--font-luoyan) text-4xl">
-            文 章 檔 案 櫃
+            文　章　檔　案　櫃
           </h1>
           <div className="border-postcardtitlebar mx-auto w-30 border"></div>
         </div>
