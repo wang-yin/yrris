@@ -55,7 +55,25 @@ export const postType = defineType({
       name: "body",
       title: "內容",
       type: "array",
-      of: [{ type: "block" }], // 使用 Rich Text
+      of: [
+        { type: "block" },
+        {
+          type: "code",
+          name: "myCodeBlock",
+          title: "程式碼區塊",
+          options: {
+            withFilename: true, // 允許你輸入該檔案的名稱（例如：solution.cpp）
+            languageAlternatives: [
+              { title: "C++", value: "cpp" },
+              { title: "JavaScript", value: "javascript" },
+              { title: "TypeScript", value: "typescript" },
+              { title: "Python", value: "python" },
+              { title: "CSS", value: "css" },
+              { title: "HTML", value: "html" },
+            ],
+          },
+        },
+      ], // 使用 Rich Text
     },
   ],
 });

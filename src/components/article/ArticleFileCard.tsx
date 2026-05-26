@@ -11,7 +11,7 @@ export default function ArticleFileCard({
   const dateString = date ? date.split("T")[0] : "2026-01-01";
   const [year, month, day] = dateString.split("-");
   return (
-    <Link href={`/${slug}`} className="block">
+    <Link href={`article/${slug}`} className="block">
       <div className="bg-postcardbg border-cardcategorie relative cursor-pointer rounded-lg border p-6 font-sans transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
         {/* 膠帶裝飾 */}
         <div className="bg-tape absolute -top-4 right-1/2 h-8 w-20 rotate-8"></div>

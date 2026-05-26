@@ -55,3 +55,19 @@ export async function getAllArticlesForArchive() {
     }
   `);
 }
+
+export async function getPostDetail(slug: string) {
+  return await client.fetch(
+    `*[_type == "post" && slug.current == $slug][0]{
+      _id,
+      title,
+      "slug": slug.current,
+      publishedAt,
+      mainImage,
+      "categories": categories[]->title,
+      tags,
+      body // Sanity 的富文本 JSON 資料
+    }`,
+    { slug },
+  );
+}

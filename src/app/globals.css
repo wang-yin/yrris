@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tailwind-scrollbar-hide/v4";
 
 :root {
   --background: #f5f1e8;
@@ -11,6 +12,27 @@
   --drawer: #e8e0cf;
   --cardcategorie: #d9d1c0;
   --tape: #d2c8aa80;
+  --article: #a09688;
+  --title: #3d3830;
+  --circle: #c9bfa8;
+  --content: #faf7f0;
+  --contentborder: #e4ddd0;
+  --clock: #b0a898;
+  --name: #5a5446;
+  --articlebroder: #ddd5c4;
+  --toc: #ddd6c8;
+  --intro: #7a7265;
+  --code: #2a241e;
+  --codeselection: #1e1a15;
+  --codered: #ff5f57;
+  --codeyellow: #febc2e;
+  --green: #28c840;
+  --DarkSilver: #7a7060;
+  --DarkCoffeeBrown: #252018;
+  --dansongyan: #4a4035;
+  --LightGrayishOrange: #e0d4bc;
+  --Ashwood: #a89f8d;
+  --DarkGrayishBrown: #3a322a;
 }
 
 @layer utilities {
@@ -50,6 +72,27 @@
   --color-articletitle: var(--articletitle);
   --color-cardcategorie: var(--cardcategorie);
   --color-tape: var(--tape);
+  --color-article: var(--article);
+  --color-title: var(--title);
+  --color-circle: var(--circle);
+  --color-content: var(--content);
+  --color-contentborder: var(--contentborder);
+  --color-clock: var(--clock);
+  --color-name: var(--name);
+  --color-articlebroder: var(--articlebroder);
+  --color-toc: var(--toc);
+  --color-intro: var(--intro);
+  --color-code: var(--code);
+  --color-codered: var(--codered);
+  --color-codeyellow: var(--codeyellow);
+  --color-green: var(--green);
+  --color-DarkSilver: var(--DarkSilver);
+  --color-codeselection: var(--codeselection);
+  --color-DarkCoffeeBrown: var(--DarkCoffeeBrown);
+  --color-dansongyan: var(--dansongyan);
+  --color-LightGrayishOrange: var(--LightGrayishOrange);
+  --color-Ashwood: var(--Ashwood);
+  --color-DarkGrayishBrown: var(--DarkGrayishBrown);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -65,4 +108,69 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ==========================================================================
+   自訂和風 Lo-Fi 技術部落格程式碼高亮顏色
+   ========================================================================== */
+
+/* 註解 (低調的土黃綠) */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6a6050 !important;
+  font-style: italic !important;
+}
+
+/* 標點符號、括號 */
+.token.punctuation {
+  color: #a89f8d !important;
+}
+
+/* 關鍵字 (例如 C++ 的 if, return, int, class - 使用顯眼的硃砂紅/橘紅) */
+.token.keyword,
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #cf6953 !important;
+  font-weight: bold !important;
+}
+
+/* 函式名稱、類別名稱 (例如 C++ 的 main, vector - 使用柔和的琥珀黃/秋葉黃) */
+.token.function,
+.token.class-name,
+.token.type-definition {
+  color: #d19a66 !important;
+}
+
+/* 字串、字元 (例如 "hello world" - 使用沉穩的竹青綠/植物綠) */
+.token.string,
+.token.char,
+.token.attr-value,
+.token.builtin,
+.token.inserted {
+  color: #8f9a72 !important;
+}
+
+/* 運算子、變數、巨集指令 (例如 +, -, #include) */
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable,
+.token.macro {
+  color: #bc986c !important;
+}
+
+/* 程式碼反白選取時的顏色 (避免預設藍色破壞美感) */
+code[class*="language-"] ::selection,
+pre[class*="language-"] ::selection {
+  background: #3e3529 !important;
+  color: inherit !important;
 }
