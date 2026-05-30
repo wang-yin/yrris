@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import Prism from "prismjs";
 
 // 載入需要的語言語法解析器
@@ -22,6 +22,7 @@ interface CodeBlockProps {
 
 export default function CodeBlock({ value }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const codeText = value?.code || "";
   const lang = (value?.language || "javascript").toLowerCase();
@@ -91,9 +92,15 @@ export default function CodeBlock({ value }: CodeBlockProps) {
 
       {/* 程式碼內容包裝區：動態調整高度與動畫 */}
       <div
-        className={`relative transition-all duration-500 ease-in-out overflow-hidden ${
-          isCollapsed ? "max-h-65" : "max-h-500"
-        }`}
+        ref={contentRef}
+        className="relative transition-all duration-500 ease-in-out overflow-hidden"
+        style={{
+          // 65 換算成 px 或者是你原本設定的收合高度（假設 max-h-65 是 260px）
+          // 展開時，直接拿該 DOM 的實際總高度 (scrollHeight)
+          maxHeight: isCollapsed
+            ? "260px"
+            : `${contentRef.current?.scrollHeight || 1000}px`,
+        }}
       >
         {/* 實際程式碼內容 */}
         <div className="flex overflow-x-auto px-1 py-5 text-sm leading-relaxed scrollbar-hide bg-DarkCoffeeBrown font-['Courier_New',Courier,monospace]">

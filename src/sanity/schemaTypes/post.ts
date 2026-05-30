@@ -73,6 +73,26 @@ export const postType = defineType({
             ],
           },
         },
+        defineArrayMember({
+          type: "object",
+          name: "questionBlock",
+          title: "LeetCode 題目區塊",
+          fields: [
+            {
+              name: "description",
+              title: "題目描述",
+              type: "text",
+              rows: 3,
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: "example",
+              title: "測資範例 (選填)",
+              type: "text",
+              rows: 4,
+            },
+          ],
+        }),
       ], // 使用 Rich Text
     },
   ],

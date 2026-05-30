@@ -2,6 +2,8 @@
 
 import { PortableText, PortableTextComponents } from "@portabletext/react";
 import CodeBlock from "@/components/article/CodeBlock";
+import QuestionBlock from "@/components/article/QuestionBlock";
+import { Children } from "react";
 
 // 這是一個輔助函式：把標題文字轉成乾淨的 ID（支援中英文、LeetCode 等特殊字元）
 function convertTextToId(text: string) {
@@ -18,6 +20,20 @@ export default function ArticleRenderer({ body }: { body: any }) {
   const myComponents: PortableTextComponents = {
     types: {
       myCodeBlock: ({ value }) => <CodeBlock value={value} />,
+      questionBlock: ({ value }) => <QuestionBlock value={value} />,
+    },
+    list: {
+      bullet: ({ children }) => (
+        <ul className="mb-5 space-y-2.5">{children}</ul>
+      ),
+    },
+    listItem: {
+      bullet: ({ children }) => (
+        <li className="flex items-start gap-3 text-base leading-[1.75] text-articletitle">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-circle mt-2.5 shrink-0"></span>
+          {children}
+        </li>
+      ),
     },
     block: {
       // 🟢 客製化 H2 渲染
@@ -56,6 +72,11 @@ export default function ArticleRenderer({ body }: { body: any }) {
         <p className="mb-5 text-base leading-[1.85] text-articletitle">
           {children}
         </p>
+      ),
+      blockquote: ({ children }) => (
+        <blockquote className="my-7 px-6 py-4 rounded-xl text-sm leading-[1.85] bg-PeacefulWhite border-circle border-l-4 text-articletitle italic">
+          {children}
+        </blockquote>
       ),
     },
     marks: {
