@@ -29,8 +29,8 @@ export default function ArticleRenderer({ body }: { body: any }) {
     },
     listItem: {
       bullet: ({ children }) => (
-        <li className="flex items-start gap-3 text-base leading-[1.75] text-articletitle">
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-circle mt-2.5 shrink-0"></span>
+        <li className="flex items-start gap-3 text-base leading-[1.75] text-Umber">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-DinosaurEgg mt-2.5 shrink-0"></span>
           {children}
         </li>
       ),
@@ -46,7 +46,7 @@ export default function ArticleRenderer({ body }: { body: any }) {
         return (
           <h2
             id={id}
-            className="text-base font-medium mt-9 mb-4 scroll-mt-8 tracking-[0.01em] text-title"
+            className="text-base font-medium mt-9 mb-4 scroll-mt-8 tracking-[0.01em] text-Kilimanjaro"
           >
             {children}
           </h2>
@@ -69,12 +69,10 @@ export default function ArticleRenderer({ body }: { body: any }) {
       },
       // 一般段落 P
       normal: ({ children }) => (
-        <p className="mb-5 text-base leading-[1.85] text-articletitle">
-          {children}
-        </p>
+        <p className="mb-5 text-base leading-[1.85] text-Umber">{children}</p>
       ),
       blockquote: ({ children }) => (
-        <blockquote className="my-7 px-6 py-4 rounded-xl text-sm leading-[1.85] bg-PeacefulWhite border-circle border-l-4 text-articletitle italic">
+        <blockquote className="my-7 px-6 py-4 rounded-xl text-sm leading-[1.85] bg-PeacefulWhite border-DinosaurEgg border-l-4 text-Umber italic">
           {children}
         </blockquote>
       ),
@@ -86,8 +84,8 @@ export default function ArticleRenderer({ body }: { body: any }) {
       ),
       // 程式碼標籤 `code`
       code: ({ children }) => (
-        <div className="mb-6 rounded-xl overflow-hidden border border-code">
-          <div className="flex items-center gap-2 px-4 py-2.5 bg-codeselection border-b-code">
+        <div className="mb-6 rounded-xl overflow-hidden border border-WoodBark">
+          <div className="flex items-center gap-2 px-4 py-2.5 bg-TwilightZone border-b-WoodBark">
             <div
               style={{
                 width: 10,

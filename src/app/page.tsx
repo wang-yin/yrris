@@ -44,7 +44,7 @@ export default async function Home() {
           </span>
           <div className="grow border-t border-gray-300"></div>
         </div>
-        <div className="bg-postcardtitlebar absolute top-32 bottom-0 left-1/2 w-0.5 -translate-x-1/2" />
+        <div className="bg-AlmondMilk absolute top-32 bottom-0 left-1/2 w-0.5 -translate-x-1/2" />
 
         {/* 時間軸線 */}
         <div className="relative space-y-12">

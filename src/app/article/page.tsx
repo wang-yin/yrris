@@ -91,7 +91,7 @@ export default function Article() {
         <div
           className={`mb-12 transform transition-all duration-500 ${selectedFilter === "全部" ? "hidden" : "block"}`}
         >
-          <div className="bg-drawer rounded-lg p-4">
+          <div className="bg-DryBone rounded-lg p-4">
             <div className="flex flex-wrap justify-start gap-4">
               {currentItems.map((item) => (
                 <button
@@ -119,7 +119,7 @@ export default function Article() {
           />
         ))}
       </div>
-      <div className="text-stamp mt-10 text-center text-sm">
+      <div className="text-Antique mt-10 text-center text-sm">
         共找到 {filteredArticles.length} 篇文章
       </div>
     </Suspense>

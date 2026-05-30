@@ -65,13 +65,13 @@ export default function CodeBlock({ value }: CodeBlockProps) {
   };
 
   return (
-    <div className="mb-6 rounded-xl overflow-hidden shadow-sm transition-all duration-300 border border-code">
+    <div className="mb-6 rounded-xl overflow-hidden shadow-sm transition-all duration-300 border border-WoodBark">
       {/* Mac 風格頂部裝飾條 */}
-      <div className="flex items-center justify-between px-4 py-2.5 select-none bg-codeselection border-b-code">
+      <div className="flex items-center justify-between px-4 py-2.5 select-none bg-TwilightZone border-b-WoodBark">
         <div className="flex items-center gap-2">
-          <div className="w-2.5 h-2.5 rounded-full bg-codered" />
-          <div className="w-2.5 h-2.5 rounded-full bg-codeyellow" />
-          <div className="w-2.5 h-2.5 rounded-full bg-green" />
+          <div className="w-2.5 h-2.5 rounded-full bg-SunsetOrange" />
+          <div className="w-2.5 h-2.5 rounded-full bg-VibrantHoney" />
+          <div className="w-2.5 h-2.5 rounded-full bg-LimeGreen" />
 
           <span className="text-xs ml-3 uppercase tracking-wider font-mono text-DarkSilver">
             {value.filename || lang || "code"}
@@ -82,7 +82,7 @@ export default function CodeBlock({ value }: CodeBlockProps) {
           onClick={handleCopy}
           className={`cursor-pointer rounded px-2 py-1 text-xs font-mono transition-all duration-200 border${
             copied
-              ? "text-green bg-/10 border-green/30"
+              ? "text-LimeGreen bg-/10 border-LimeGreen/30"
               : "text-DarkSilver bg-transparent border-transparent"
           }`}
         >
@@ -105,7 +105,7 @@ export default function CodeBlock({ value }: CodeBlockProps) {
         {/* 實際程式碼內容 */}
         <div className="flex overflow-x-auto px-1 py-5 text-sm leading-relaxed scrollbar-hide bg-DarkCoffeeBrown font-['Courier_New',Courier,monospace]">
           {/* 左側：行號 */}
-          <div className="select-none text-right pr-4 font-mono text-dansongyan border-r border-code min-w-10">
+          <div className="select-none text-right pr-4 font-mono text-dansongyan border-r border-WoodBark min-w-10">
             {lines.map((_, index) => (
               <div key={index}>{index + 1}</div>
             ))}
@@ -134,7 +134,7 @@ export default function CodeBlock({ value }: CodeBlockProps) {
 
       {/* 展開 / 收合 控制按鈕欄：只有當程式碼長度超過門檻時才渲染 */}
       {isLongCode && (
-        <div className="flex justify-center py-2.5 select-none bg-codeselection border-t border-code">
+        <div className="flex justify-center py-2.5 select-none bg-TwilightZone border-t border-WoodBark">
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
             className="cursor-pointer text-xs font-mono tracking-wider px-4 py-1 rounded transition-colors duration-200 text-Ashwood border border-DarkGrayishBrown bg-DarkCoffeeBrown hover:text-LightGrayishOrange hover:border-dansongyan"
