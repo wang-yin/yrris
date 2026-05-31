@@ -40,7 +40,7 @@ export default function PostcardCategory({ title, posts, slug }) {
             {posts.map((post) => (
               <Link
                 key={post.slug}
-                href={`/${post.slug}`}
+                href={`/article/${post.slug}`}
                 className="inline-block max-w-full truncate text-gray-600 hover:underline cursor-pointer"
               >
                 {post.title}

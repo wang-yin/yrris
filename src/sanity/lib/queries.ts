@@ -66,7 +66,21 @@ export async function getPostDetail(slug: string) {
       mainImage,
       "categories": categories[]->title,
       tags,
-      body // Sanity 的富文本 JSON 資料
+      body, // Sanity 的富文本 JSON 資料
+      
+      // 💡 新增：尋找「上一篇」（發布時間小於當前文章，且最接近的那一篇）
+      "prev": *[_type == "post" && publishedAt < ^.publishedAt] | order(publishedAt desc)[0] {
+        title,
+        "slug": slug.current,
+        publishedAt
+      },
+      
+      // 💡 新增：尋找「下一篇」（發布時間大於當前文章，且最接近的那一篇）
+      "next": *[_type == "post" && publishedAt > ^.publishedAt] | order(publishedAt asc)[0] {
+        title,
+        "slug": slug.current,
+        publishedAt
+      }
     }`,
     { slug },
   );

@@ -6,6 +6,7 @@ import { GoTag } from "react-icons/go";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 import TableOfContents from "@/components/article/TableOfContents";
 import ArticleRenderer from "@/components/article/ArticleRenderer";
+import Link from "next/link";
 
 export default async function PostDetailPage({
   params,
@@ -104,31 +105,50 @@ export default async function PostDetailPage({
             </div>
 
             {/* 上 / 下一篇 */}
-            <div className="grid grid-cols-2 gap-3 mt-10">
-              <button className="border flex flex-col text-left p-4 rounded-xl bg-SugarQuill border-WheatSheaf transition-all duration-200 hover:-translate-y-0.5 cursor-pointer group">
-                <div className="flex items-center text-SmokingMirror mb-2 gap-1.5">
-                  <FaAngleLeft size={13} />
-                  <span className="text-xs">上一篇</span>
-                </div>
-                <div className="text-sm font-medium leading-snug transition-transform group-hover:-translate-x-0.5 text-Umber">
-                  堆疊應用
-                </div>
-                <div className="text-xs mt-1 text-ForgottenSandstone">
-                  2026-04-12
-                </div>
-              </button>
-              <button className="border flex flex-col text-right p-4 rounded-xl bg-SugarQuill border-WheatSheaf transition-all duration-200 hover:-translate-y-0.5 cursor-pointer group">
-                <div className="flex items-center justify-end text-SmokingMirror mb-2 gap-1.5">
-                  <span className="text-xs">下一篇</span>
-                  <FaAngleRight size={13} />
-                </div>
-                <div className="text-sm font-medium leading-snug transition-transform group-hover:-translate-x-0.5 text-Umber">
-                  堆疊應用
-                </div>
-                <div className="text-xs mt-1 text-ForgottenSandstone">
-                  2026-04-12
-                </div>
-              </button>
+            <div className="grid grid-cols-2 gap-3 mt-10 select-none">
+              {post.prev ? (
+                <Link
+                  href={`/article/${post.prev.slug}`}
+                  className="border flex flex-col text-left p-4 rounded-xl bg-SugarQuill border-WheatSheaf transition-all duration-200 hover:-translate-y-0.5 cursor-pointer group"
+                >
+                  <div className="flex items-center text-SmokingMirror mb-2 gap-1.5">
+                    <FaAngleLeft size={13} />
+                    <span className="text-xs">上一篇</span>
+                  </div>
+                  <div className="text-sm font-medium leading-snug transition-transform group-hover:-translate-x-0.5 text-Umber">
+                    {post.prev.title}
+                  </div>
+                  <div className="text-xs mt-1 text-ForgottenSandstone">
+                    {post.prev.publishedAt
+                      ? post.prev.publishedAt.split("T")[0]
+                      : "無日期"}
+                  </div>
+                </Link>
+              ) : (
+                <div></div>
+              )}
+
+              {post.next ? (
+                <Link
+                  href={`/article/${post.next.slug}`}
+                  className="border flex flex-col text-right p-4 rounded-xl bg-SugarQuill border-WheatSheaf transition-all duration-200 hover:-translate-y-0.5 cursor-pointer group"
+                >
+                  <div className="flex items-center justify-end text-SmokingMirror mb-2 gap-1.5">
+                    <span className="text-xs">下一篇</span>
+                    <FaAngleRight size={13} />
+                  </div>
+                  <div className="text-sm font-medium leading-snug transition-transform group-hover:-translate-x-0.5 text-Umber">
+                    {post.next.title}
+                  </div>
+                  <div className="text-xs mt-1 text-ForgottenSandstone">
+                    {post.next.publishedAt
+                      ? post.next.publishedAt.split("T")[0]
+                      : "無日期"}
+                  </div>
+                </Link>
+              ) : (
+                <div></div>
+              )}
             </div>
           </div>
           <div className="hidden lg:block shrink-0 w-50" />
