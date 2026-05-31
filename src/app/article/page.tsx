@@ -65,10 +65,10 @@ export default function Article() {
       <div className="mx-auto mt-12 max-w-xl text-center">
         {/* 標題 */}
         <div className="mb-12">
-          <h1 className="text-articletitle font-(family-name:--font-luoyan) text-4xl">
+          <h1 className="text-Umber font-(family-name:--font-luoyan) text-4xl">
             文　章　檔　案　櫃
           </h1>
-          <div className="border-postcardtitlebar mx-auto w-30 border"></div>
+          <div className="border-AlmondMilk mx-auto w-30 border"></div>
         </div>
 
         {/* 篩選類型切換 */}

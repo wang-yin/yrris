@@ -3,15 +3,7 @@
 import { PortableText, PortableTextComponents } from "@portabletext/react";
 import CodeBlock from "@/components/article/CodeBlock";
 import QuestionBlock from "@/components/article/QuestionBlock";
-import { Children } from "react";
-
-// 這是一個輔助函式：把標題文字轉成乾淨的 ID（支援中英文、LeetCode 等特殊字元）
-function convertTextToId(text: string) {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9\u4e00-\u9fa5-_]/g, "") // 僅保留中英數字、底線與連字號
-    .replace(/\s+/g, "-"); // 空格轉連字號
-}
+import { convertTextToId } from "./utils/articleHelpers";
 
 export default function ArticleRenderer({ body }: { body: any }) {
   if (!body) return <p className="text-gray-400 italic">這篇文章沒有內文。</p>;
