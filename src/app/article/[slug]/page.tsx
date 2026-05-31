@@ -1,3 +1,4 @@
+import { getReadingTime } from "@/components/article/utils/articleHelpers";
 import { getPostDetail } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa6";
@@ -23,6 +24,8 @@ export default async function PostDetailPage({
   const formattedDate = post.publishedAt
     ? post.publishedAt.split("T")[0]
     : "未知日期";
+
+  const minutesToRead = getReadingTime(post.body);
 
   return (
     // 💡 1. 移除最外層不必要的 flex，改用單純的區塊，由 max-w 全權控管大局
@@ -65,7 +68,7 @@ export default async function PostDetailPage({
                 </div>
                 <div className="flex items-center gap-1.5 text-SmokingMirror">
                   <FiClock size={12} />
-                  <span className="text-sm">8 分鐘閱讀</span>
+                  <span className="text-sm">{minutesToRead} 分鐘閱讀</span>
                 </div>
                 <div className="flex items-center text-SmokingMirror gap-2 flex-wrap">
                   {post.tags.map((tag: string) => (
@@ -105,7 +108,7 @@ export default async function PostDetailPage({
                   </div>
                 </div>
                 <div className="text-xs text-ForgottenSandstone">
-                  8 分鐘閱讀
+                  {minutesToRead} 分鐘閱讀
                 </div>
               </div>
             </div>
