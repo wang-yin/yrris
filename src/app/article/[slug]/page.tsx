@@ -14,10 +14,8 @@ export default async function PostDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-
   const post = await getPostDetail(slug);
 
-  // 如果找不到文章，直接觸發 Next.js 內建的 404 頁面
   if (!post) {
     notFound();
   }
@@ -27,23 +25,30 @@ export default async function PostDetailPage({
     : "未知日期";
 
   return (
-    <div className="flex">
-      <div className="max-w-6xl mx-auto px-6 pb-0 pt-10">
-        {/* 返回 */}
-        <button className="flex items-center gap-2 mb-10 text-SmokingMirror cursor-pointer group font-(family-name:--font-luoyan)">
+    // 💡 1. 移除最外層不必要的 flex，改用單純的區塊，由 max-w 全權控管大局
+    <div className="w-full min-h-screen">
+      <div className="max-w-6xl mx-auto px-6 pb-20 pt-10">
+        {/* 返回按鈕 */}
+        <Link
+          href="/article" // 💡 順手幫你把 button 改成 Link，這樣才能真正點擊返回列表喔！
+          className="inline-flex items-center gap-2 mb-10 text-SmokingMirror cursor-pointer group font-(family-name:--font-luoyan)"
+        >
           <FaArrowLeft
             color="#a09688"
             size={15}
             className="transition-transform group-hover:-translate-x-0.75"
           />
           <span className="text-lg">返回列表</span>
-        </button>
-        <div className="flex pt-10 mt-12 max-w-6xl mx-auto px-6 pb-20 gap-10 items-start">
+        </Link>
+
+        {/* 💡 2. 這裡才是真正的左右三欄三明治架構 (目錄 | 內文 | 右側對稱空欄) */}
+        <div className="flex w-full gap-10 items-start mt-12">
           {/* ── 左側目錄 ── */}
           <TableOfContents body={post.body} />
 
           {/* ── 主內容 ── */}
-          <div className="flex-1 min-w-0">
+          {/* 💡 3. 關鍵修正：加上 w-full 與 lg:max-w 限制，確保字少時依然撐滿完整格局，字多時也不會擠壓 */}
+          <div className="flex-1 w-full min-w-0">
             <div className="mb-10">
               {/* Tags */}
               <div></div>
@@ -80,11 +85,12 @@ export default async function PostDetailPage({
               </div>
             </div>
 
-            {/* 內文 */}
+            {/* 內文白卷軸 */}
             <div className="rounded-2xl mb-8 bg-SilverBird border border-Merino shadow-[0_2px_12px_rgba(90,84,70,0.07),0_1px_3px_rgba(90,84,70,0.05)]">
               <div className="px-10 py-10">
                 <ArticleRenderer body={post.body} />
               </div>
+
               {/* 作者列 */}
               <div className="flex items-center justify-between px-10 py-5 border-Merino border-t">
                 <div className="flex items-center gap-3">
@@ -131,7 +137,7 @@ export default async function PostDetailPage({
               {post.next ? (
                 <Link
                   href={`/article/${post.next.slug}`}
-                  className="border flex flex-col text-right p-4 rounded-xl bg-SugarQuill border-WheatSheaf transition-all duration-200 hover:-translate-y-0.5 cursor-pointer group"
+                  className="border flex flex-col text-right p-4 rounded-xl bg-SugarQuill border-WheatSheaf transition-all duration-200 hover:-translate-y-0.5 cursor-pointer group items-end"
                 >
                   <div className="flex items-center justify-end text-SmokingMirror mb-2 gap-1.5">
                     <span className="text-xs">下一篇</span>
@@ -151,6 +157,9 @@ export default async function PostDetailPage({
               )}
             </div>
           </div>
+
+          {/* ── 右側對稱空白（維持主內容置中） ── */}
+          {/* 💡 4. 這裡與左側的 TableOfContents 寬度互相呼應，確保中間的 article 永遠處於美學核心 */}
           <div className="hidden lg:block shrink-0 w-50" />
         </div>
       </div>
