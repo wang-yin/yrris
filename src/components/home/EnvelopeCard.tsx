@@ -10,7 +10,7 @@ export default function EnvelopeCard({
   const dateString = date ? date.split("T")[0] : "2026-01-01";
   const [year, month, day] = dateString.split("-");
   return (
-    <Link href={`/${slug}`} className="block">
+    <Link href={`/article/${slug}`} className="block">
       <div
         className={`flex items-center gap-8 ${position === "right" ? "flex-row-reverse" : ""}`}
       >

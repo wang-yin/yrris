@@ -1,28 +1,10 @@
-import * as Icons from "@/components/icons";
-import { FaGithub } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
-
-const SKILLS_CONFIG = [
-  { id: "html", name: "HTML5", Icon: Icons.Html5 },
-  { id: "css", name: "CSS3", Icon: Icons.Css3 },
-  { id: "js", name: "JavaScript", Icon: Icons.JavaScript },
-  { id: "typescript", name: "TypeScript", Icon: Icons.TypeScript },
-  { id: "react", name: "React", Icon: Icons.ReactIcon },
-  { id: "next", name: "Next.js", Icon: Icons.Nextjs },
-  { id: "tailwind", name: "Tailwind CSS", Icon: Icons.TailwindCSS },
-  { id: "bootstrap", name: "Bootstrap", Icon: Icons.Bootstrap },
-  { id: "express", name: "Express.js", Icon: Icons.Expressjs },
-  { id: "node", name: "Node.js", Icon: Icons.Nodejs },
-  { id: "mongodb", name: "MongoDB", Icon: Icons.MongoDB },
-  { id: "vscode", name: "VS Code", Icon: Icons.VScode },
-  { id: "git", name: "Git", Icon: Icons.Git },
-];
+import Image from "next/image";
+import SocialLinks from "@/components/profile/SocialLinks";
+import Link from "next/link";
+import { FiArrowUpRight } from "react-icons/fi";
+import { SKILLS_CONFIG } from "@/config/skills";
 
 export default function Profile() {
-  const socialLinks = [
-    { name: "Github", url: "github.com" },
-    { name: "Email", url: "google.com" },
-  ];
   return (
     <>
       <div className="mx-auto mt-12 max-w-xl lg:max-w-4xl text-center">
@@ -46,7 +28,15 @@ export default function Profile() {
           <div className="flex flex-col shrink-0 gap-8 items-start lg:flex-row border-b border-BuffIt">
             {/* 頭像區 */}
             <div className="flex-col flex ">
-              <div className="w-40 h-40 rounded-full border-4 border-AlmondMilk"></div>
+              <div className="w-40 h-40 rounded-full border-4 border-AlmondMilk relative overflow-hidden group shadow-sm">
+                <Image
+                  src="/avatar.jpeg"
+                  alt="Yrris's Avatar"
+                  fill
+                  sizes="160px"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                ></Image>
+              </div>
               <div className="w-40 h-14 rounded-[50%] border-2 border-dashed flex flex-col items-center justify-center border-AlmondMilk text-xs text-Antique mt-4 opacity-60">
                 <div>Code & Life</div>
               </div>
@@ -67,25 +57,7 @@ export default function Profile() {
 
               {/* 聯繫方式 */}
               <div className="text-sm mb-3 text-Antique">聯繫方式</div>
-              <div className="flex gap-3 mb-6">
-                {socialLinks.map((link, index) => (
-                  <div
-                    key={index}
-                    className="text-center p-4 border-dashed border-2 cursor-pointer group transition-all duration-300 flex-1 hover:scale-105 bg-BuffIt border-Antique rounded-sm"
-                  >
-                    <div className="text-2xl mb-2 flex justify-center">
-                      {link.name === "Github" && <FaGithub />}
-                      {link.name === "Email" && <MdEmail />}
-                    </div>
-                    <div className="text-sm font-medium text-Umber">
-                      {link.name}
-                    </div>
-                    <div className="text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity text-Antique">
-                      點擊前往
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <SocialLinks />
             </div>
           </div>
           <div className="text-right italic mt-8 text-sm text-Antique">
@@ -101,15 +73,22 @@ export default function Profile() {
           <div className="border-AlmondMilk mx-auto w-30 border"></div>
         </div>
         <div className="flex flex-wrap gap-3 rounded-lg bg-SugarQuill p-10 border-BuffIt border-2 shadow-lg">
-          {SKILLS_CONFIG.map(({ id, name, Icon }) => (
-            <div
+          {SKILLS_CONFIG.map(({ id, name, Icon, url }) => (
+            <Link
               key={id}
-              className="flex items-center gap-2 px-3 py-1.5 bg-DryBone  rounded-full text-sm font-medium border border-BuffIt  hover:shadow-sm hover:-translate-y-px transition-all cursor-pointer"
+              href={url}
+              target="_blank" // 確保在新分頁開啟
+              rel="noopener noreferrer" // 安全防護
+              className="flex items-center gap-1.5 pl-3.5 pr-8 py-1.5 bg-DryBone  rounded-full text-sm font-medium border border-BuffIt  hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative"
             >
               {/* 統一調整 Icon 的大小 */}
-              <Icon size={20} className="shrink-0" />
+              <Icon size={18} className="shrink-0" />
               <span>{name}</span>
-            </div>
+
+              <span className="absolute right-2.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out flex items-center text-Antique">
+                <FiArrowUpRight size={14} />
+              </span>
+            </Link>
           ))}
         </div>
       </div>
