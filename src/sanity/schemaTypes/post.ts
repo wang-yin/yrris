@@ -13,6 +13,14 @@ export const postType = defineType({
       validation: (Rule: any) => Rule.required(),
     },
     {
+      name: "excerpt",
+      title: "文章摘要 (Excerpt)",
+      type: "text", // 使用 text 而不是 string，後台輸入框會比較大，方便寫兩三句話
+      description: "顯示在文章櫃卡片上的精簡介紹，建議在 50-100 字以內。",
+      validation: (Rule: any) =>
+        Rule.max(200).warning("摘要太長可能會在卡片上被截斷喔！"),
+    },
+    {
       name: "slug",
       title: "網址路徑 (Slug)",
       type: "slug",

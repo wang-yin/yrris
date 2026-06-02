@@ -48,10 +48,9 @@ export async function getAllArticlesForArchive() {
       title,
       "slug": slug.current,
       "date": publishedAt,
-      // 這裡抓取分類的 title 陣列
-      "categories": categories[]->title,
-      // 這裡抓取標籤的 title 陣列
-      "tags": tags
+      "categories": categories[]->title, // 這裡抓取分類的 title 陣列
+      "tags": tags, // 這裡抓取標籤的 title 陣列
+      excerpt
     }
   `);
 }
