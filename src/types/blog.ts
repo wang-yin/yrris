@@ -3,6 +3,7 @@ export interface PostSummary {
   title: string;
   slug: string;
   publishedAt: string;
+  categories?: string;
   category?: string;
   tags?: string[];
   excerpt?: string;

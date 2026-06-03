@@ -15,7 +15,7 @@ export default function VScodeIcon({ size = 24 }: { size?: number }) {
         height="100"
         x="0"
         y="0"
-        maskType="alpha"
+        mask-type="alpha"
         maskUnits="userSpaceOnUse"
       >
         <path
