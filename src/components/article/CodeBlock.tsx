@@ -80,10 +80,11 @@ export default function CodeBlock({ value }: CodeBlockProps) {
 
         <button
           onClick={handleCopy}
-          className={`cursor-pointer rounded px-2 py-1 text-xs font-mono transition-all duration-200 border${
+          // 💡 關鍵修正：在 border 後面留一個空格 "border "，並把補上正確的 bg-LimeGreen/10
+          className={`cursor-pointer rounded px-2 py-1 text-xs font-mono transition-all duration-200 border ${
             copied
-              ? "text-LimeGreen bg-/10 border-LimeGreen/30"
-              : "text-DarkSilver bg-transparent border-transparent"
+              ? "text-LimeGreen bg-LimeGreen/10 border-LimeGreen/30"
+              : "text-DarkSilver bg-transparent border-transparent hover:text-LightGrayishOrange"
           }`}
         >
           {copied ? "Copied!" : "Copy"}

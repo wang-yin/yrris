@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 type FilterType = "category" | "tag" | "year";
 const FILTER_LABELS = ["分類", "標籤", "年份"];

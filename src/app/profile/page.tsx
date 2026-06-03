@@ -61,7 +61,7 @@ export default function Profile() {
             </div>
           </div>
           <div className="text-right italic mt-8 text-sm text-Antique">
-            "Keep coding, keep learning."
+            {'"Keep coding, keep learning."'}
           </div>
         </div>
 

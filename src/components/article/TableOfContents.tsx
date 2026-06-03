@@ -3,6 +3,7 @@
 import { MdOutlineFormatAlignLeft } from "react-icons/md";
 import { convertTextToId } from "./utils/articleHelpers";
 import { useState, useEffect } from "react";
+import type { PortableTextBlock, PortableTextSpan } from "@portabletext/types";
 
 interface TOCItem {
   text: string;
@@ -11,23 +12,27 @@ interface TOCItem {
 }
 
 interface TableOfContentsProps {
-  body: any[]; // 來自 Sanity 的 body 陣列
+  body: PortableTextBlock[];
 }
 
 export default function TableOfContents({ body }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>("");
 
-  const headings = (body || [])
+  const headings: TOCItem[] = (body || [])
     .filter(
-      (block) => block._type === "block" && ["h2", "h3"].includes(block.style),
+      (block) =>
+        block._type === "block" && ["h2", "h3"].includes(block.style || ""),
     )
     .map((block) => {
+      // 💡 3. 將 child 斷言或標記為 PortableTextSpan (標準的 Sanity 文字子節點型別)
       const text =
-        block.children?.map((child: any) => child.text).join("") || "";
+        block.children
+          ?.map((child) => (child as PortableTextSpan).text)
+          .join("") || "";
 
-      const id = convertTextToId(text); // 👈 這裡也要用一模一樣的函式！
+      const id = convertTextToId(text);
 
-      return { text, id, level: block.style };
+      return { text, id, level: block.style as "h2" | "h3" };
     });
 
   useEffect(() => {
@@ -36,7 +41,7 @@ export default function TableOfContents({ body }: TableOfContentsProps) {
     // 1. 抓取文章內所有對應的標題 DOM 節點
     const headingElements = headings
       .map((h) => document.getElementById(h.id))
-      .filter(Boolean);
+      .filter((el): el is HTMLElement => el !== null);
 
     // 2. 建立交會監聽器
     const observer = new IntersectionObserver(

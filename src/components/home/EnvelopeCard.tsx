@@ -1,12 +1,20 @@
 import Link from "next/link";
 
+interface EnvelopeCardProps {
+  title: string;
+  date: string;
+  category: string;
+  position: "left" | "right";
+  slug: string;
+}
+
 export default function EnvelopeCard({
   title,
   date,
   category,
   position,
   slug,
-}) {
+}: EnvelopeCardProps) {
   const dateString = date ? date.split("T")[0] : "2026-01-01";
   const [year, month, day] = dateString.split("-");
   return (

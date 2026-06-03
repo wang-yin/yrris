@@ -2,6 +2,7 @@ import ArticleFileCard from "@/components/article/ArticleFileCard";
 import FilterTabs from "@/components/article/FilterTabs";
 import FilterPills from "@/components/article/FilterPills";
 import { getAllArticlesForArchive } from "@/sanity/lib/queries";
+import { PostSummary } from "@/types/blog";
 
 type FilterType = "category" | "tag" | "year";
 
@@ -18,9 +19,11 @@ export default async function ArticlePage({ searchParams }: PageProps) {
   const currentType = (type as FilterType) || "category";
   const currentPill = filter || "全部";
 
-  const rawArticles = (await getAllArticlesForArchive()) || [];
+  const rawArticles =
+    ((await getAllArticlesForArchive()) as PostSummary[]) || [];
 
   const pillsSet = new Set<string>();
+
   rawArticles.forEach((article) => {
     if (currentType === "category" && article.category) {
       pillsSet.add(article.category);
@@ -76,7 +79,7 @@ export default async function ArticlePage({ searchParams }: PageProps) {
                   date={formattedDate}
                   categories={article.categories || "未分類"}
                   tags={article.tags || []}
-                  slug={article.slug}
+                  slug={typeof article.slug === "string" ? article.slug : ""}
                   excerpt={article.excerpt}
                 />
               );

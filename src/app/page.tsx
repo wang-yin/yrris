@@ -4,14 +4,15 @@ import {
   getLatestArticles,
   getCategoriesWithPosts,
 } from "@/sanity/lib/queries";
+import { HomeCategoryData, PostSummary } from "@/types/blog";
 
 export default async function Home() {
-  const latestArticles = await getLatestArticles();
-  const categoriesData = await getCategoriesWithPosts([
-    "LeetCode",
-    "SideProject",
-  ]);
-  console.log("categoriesData: ", categoriesData);
+  const latestArticles = ((await getLatestArticles()) as PostSummary[]) || [];
+  const categoriesData =
+    ((await getCategoriesWithPosts([
+      "LeetCode",
+      "SideProject",
+    ])) as HomeCategoryData[]) || [];
   return (
     <>
       {/* 分類區塊 */}
@@ -24,7 +25,7 @@ export default async function Home() {
       </div>
 
       <div className="grid h-90 grid-cols-1 gap-15 sm:grid-cols-2">
-        {categoriesData.map((category: any) => (
+        {categoriesData.map((category: HomeCategoryData) => (
           <PostcardCategory
             key={category._id}
             title={category.title}
@@ -48,16 +49,22 @@ export default async function Home() {
         {/* 時間軸線 */}
         <div className="relative space-y-12">
           {latestArticles &&
-            latestArticles.map((article: any, index: number) => (
-              <EnvelopeCard
-                key={article.slug?.current || index}
-                title={article.title}
-                date={article.publishedAt}
-                category={article.category || "未分類"}
-                position={index % 2 === 0 ? "left" : "right"}
-                slug={article.slug}
-              />
-            ))}
+            latestArticles.map((article: PostSummary, index: number) => {
+              const articleSlug =
+                typeof article.slug === "object"
+                  ? (article.slug as any).current
+                  : article.slug;
+              return (
+                <EnvelopeCard
+                  key={article._id || articleSlug || index}
+                  title={article.title}
+                  date={article.publishedAt}
+                  category={article.category || "未分類"}
+                  position={index % 2 === 0 ? "left" : "right"}
+                  slug={article.slug}
+                />
+              );
+            })}
         </div>
       </div>
     </>

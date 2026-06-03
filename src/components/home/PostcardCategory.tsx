@@ -1,9 +1,20 @@
 "use client";
 
+import { PostSummary } from "@/types/blog";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function PostcardCategory({ title, posts, slug }) {
+interface PostcardCategoryProps {
+  title: string;
+  slug: string | null;
+  posts: PostSummary[];
+}
+
+export default function PostcardCategory({
+  title,
+  posts,
+  slug,
+}: PostcardCategoryProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (

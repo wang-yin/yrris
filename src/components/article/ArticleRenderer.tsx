@@ -1,12 +1,19 @@
 "use client";
 
 import { PortableText, PortableTextComponents } from "@portabletext/react";
+import type { PortableTextBlock } from "@portabletext/types";
 import CodeBlock from "@/components/article/CodeBlock";
 import QuestionBlock from "@/components/article/QuestionBlock";
 import { convertTextToId } from "./utils/articleHelpers";
 
-export default function ArticleRenderer({ body }: { body: any }) {
-  if (!body) return <p className="text-gray-400 italic">這篇文章沒有內文。</p>;
+interface ArticleRendererProps {
+  body: PortableTextBlock[];
+}
+
+export default function ArticleRenderer({ body }: ArticleRendererProps) {
+  if (!body || body.length === 0) {
+    return <p className="text-gray-400 italic">這篇文章沒有內文。</p>;
+  }
 
   // 客製化 Sanity 的區塊渲染規則
   const myComponents: PortableTextComponents = {
