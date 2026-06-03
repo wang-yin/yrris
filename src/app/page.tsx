@@ -1,6 +1,5 @@
 import PostcardCategory from "@/components/home/PostcardCategory";
 import EnvelopeCard from "@/components/home/EnvelopeCard";
-
 import {
   getLatestArticles,
   getCategoriesWithPosts,
@@ -12,7 +11,7 @@ export default async function Home() {
     "LeetCode",
     "SideProject",
   ]);
-
+  console.log("categoriesData: ", categoriesData);
   return (
     <>
       {/* 分類區塊 */}

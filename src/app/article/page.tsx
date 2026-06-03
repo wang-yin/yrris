@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import ArticleFileCard from "@/components/article/ArticleFileCard";
 import FilterTabs from "@/components/article/FilterTabs";
 import FilterPills from "@/components/article/FilterPills";
@@ -94,7 +93,7 @@ export default async function ArticlePage({ searchParams }: PageProps) {
 
         {/* 底部總計 */}
         <div className="text-SmokingMirror mt-12 text-center text-xs tracking-wider border-t border-BuffIt/50 pt-6 max-w-xs mx-auto font-mono">
-          TOTAL: {filteredArticles.length} PIECES
+          共 {filteredArticles.length} 篇
         </div>
       </div>
     </div>

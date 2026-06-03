@@ -5,6 +5,7 @@ import Luoyan from "next/font/local";
 import Header from "@/components/layout/Header";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import ScrollToTop from "@/components/article/utils/ScrollToTop";
 
 const luoYan = Luoyan({
   src: "../../public/assets/fonts/ChenYuluoyan-Thin.ttf",
@@ -43,6 +44,7 @@ export default function RootLayout({
         <main className="mx-auto w-full max-w-7xl flex-1 px-4 sm:px-6 lg:px-8">
           {children}
         </main>
+        <ScrollToTop />
         <Footer />
       </body>
     </html>
