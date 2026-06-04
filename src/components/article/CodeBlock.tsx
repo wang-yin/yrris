@@ -104,7 +104,7 @@ export default function CodeBlock({ value }: CodeBlockProps) {
         }}
       >
         {/* 實際程式碼內容 */}
-        <div className="flex overflow-x-auto px-1 py-5 text-sm leading-relaxed scrollbar-hide bg-DarkCoffeeBrown font-['Courier_New',Courier,monospace]">
+        <div className="flex overflow-x-auto px-1 py-5 text-xs sm:text-sm leading-relaxed sm:leading-normal scrollbar-hide bg-DarkCoffeeBrown font-['Courier_New',Courier,monospace]">
           {/* 左側：行號 */}
           <div className="select-none text-right pr-4 font-mono text-dansongyan border-r border-WoodBark min-w-10">
             {lines.map((_, index) => (

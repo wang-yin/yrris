@@ -3,6 +3,11 @@ import SocialLinks from "@/components/profile/SocialLinks";
 import Link from "next/link";
 import { FiArrowUpRight } from "react-icons/fi";
 import { SKILLS_CONFIG } from "@/config/skills";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Profile",
+};
 
 export default function Profile() {
   return (

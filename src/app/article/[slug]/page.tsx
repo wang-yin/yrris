@@ -8,6 +8,34 @@ import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 import TableOfContents from "@/components/article/TableOfContents";
 import ArticleRenderer from "@/components/article/ArticleRenderer";
 import Link from "next/link";
+import { Metadata } from "next";
+
+interface Props {
+  params: Promise<{ slug: string }> | { slug: string };
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug;
+
+  try {
+    const article = await getPostDetail(slug);
+
+    if (article?.title) {
+      return {
+        // 💡 核心調整：拿掉後綴，直接回傳純粹的文章標題，完全覆蓋掉根目錄的 template
+        title: article.title,
+        description: article.excerpt || "閱讀完整文章內容",
+      };
+    }
+  } catch (error) {
+    console.error("動態 Metadata 生成失敗:", error);
+  }
+
+  return {
+    title: "文章詳情", // 備用防線也維持極簡
+  };
+}
 
 export default async function PostDetailPage({
   params,
@@ -30,7 +58,7 @@ export default async function PostDetailPage({
   return (
     // 💡 1. 移除最外層不必要的 flex，改用單純的區塊，由 max-w 全權控管大局
     <div className="w-full min-h-screen">
-      <div className="max-w-6xl mx-auto px-6 pb-20 pt-10">
+      <div className="max-w-6xl mx-auto px-0 sm:px-6 pb-20 pt-10">
         {/* 返回按鈕 */}
         <Link
           href="/article" // 💡 順手幫你把 button 改成 Link，這樣才能真正點擊返回列表喔！
@@ -90,7 +118,7 @@ export default async function PostDetailPage({
 
             {/* 內文白卷軸 */}
             <div className="rounded-2xl mb-8 bg-SilverBird border border-Merino shadow-[0_2px_12px_rgba(90,84,70,0.07),0_1px_3px_rgba(90,84,70,0.05)]">
-              <div className="px-10 py-10">
+              <div className="px-10 py-10 sm:px-6">
                 <ArticleRenderer body={post.body} />
               </div>
 

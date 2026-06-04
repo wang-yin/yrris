@@ -3,6 +3,7 @@ import FilterTabs from "@/components/article/FilterTabs";
 import FilterPills from "@/components/article/FilterPills";
 import { getAllArticlesForArchive } from "@/sanity/lib/queries";
 import { PostSummary } from "@/types/blog";
+import type { Metadata } from "next";
 
 type FilterType = "category" | "tag" | "year";
 
@@ -12,6 +13,10 @@ interface PageProps {
     filter?: string;
   }>;
 }
+
+export const metadata: Metadata = {
+  title: "Journal",
+};
 
 export default async function ArticlePage({ searchParams }: PageProps) {
   const { type, filter } = await searchParams;
