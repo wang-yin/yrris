@@ -2,7 +2,7 @@ export interface PostSummary {
   _id?: string;
   title: string;
   slug: string;
-  publishedAt: string;
+  date: string;
   categories?: string;
   category?: string;
   tags?: string[];

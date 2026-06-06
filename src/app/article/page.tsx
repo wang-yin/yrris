@@ -30,23 +30,40 @@ export default async function ArticlePage({ searchParams }: PageProps) {
   const pillsSet = new Set<string>();
 
   rawArticles.forEach((article) => {
-    if (currentType === "category" && article.category) {
-      pillsSet.add(article.category);
+    if (currentType === "category" && Array.isArray(article.categories)) {
+      article.categories.forEach((cat) => {
+        if (cat) pillsSet.add(cat);
+      });
     } else if (currentType === "tag" && Array.isArray(article.tags)) {
       article.tags.forEach((tag) => pillsSet.add(tag));
-    } else if (currentType === "year" && article.publishedAt) {
-      pillsSet.add(article.publishedAt.split("-")[0]);
+    } else if (currentType === "year" && article.date) {
+      const yearStr = article.date.substring(0, 4);
+      if (yearStr) pillsSet.add(yearStr);
     }
   });
   const dynamicPills = ["全部", ...Array.from(pillsSet)];
 
   const filteredArticles = rawArticles.filter((article) => {
     if (currentPill === "全部") return true;
-    if (currentType === "category") return article.category === currentPill;
-    if (currentType === "tag")
-      return Array.isArray(article.tags) && article.tags.includes(currentPill);
-    if (currentType === "year" && article.publishedAt)
-      return article.publishedAt.startsWith(currentPill);
+    if (currentType === "category") {
+      return (
+        Array.isArray(article.categories) &&
+        article.categories.some(
+          (cat) => cat?.toLowerCase() === currentPill.toLowerCase(),
+        )
+      );
+    }
+    if (currentType === "tag") {
+      return (
+        Array.isArray(article.tags) &&
+        article.tags.some(
+          (tag) => tag?.toLowerCase() === currentPill.toLowerCase(),
+        )
+      );
+    }
+    if (currentType === "year") {
+      return article.date && article.date.startsWith(currentPill);
+    }
     return true;
   });
 
@@ -74,7 +91,7 @@ export default async function ArticlePage({ searchParams }: PageProps) {
         {filteredArticles.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredArticles.map((article) => {
-              const dateStr = article.publishedAt || new Date().toISOString();
+              const dateStr = article.date || new Date().toISOString();
               const formattedDate = dateStr.split("T")[0];
 
               return (
