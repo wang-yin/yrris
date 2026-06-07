@@ -28,7 +28,7 @@ export default function ArticleRenderer({ body }: ArticleRendererProps) {
     },
     listItem: {
       bullet: ({ children }) => (
-        <li className="flex items-start gap-3 text-base leading-[1.75] text-Umber">
+        <li className="flex items-start gap-3 text-[15px] leading-[1.75] text-Umber">
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-DinosaurEgg mt-2.5 shrink-0"></span>
           {children}
         </li>
@@ -45,9 +45,9 @@ export default function ArticleRenderer({ body }: ArticleRendererProps) {
         return (
           <h2
             id={id}
-            className="text-base font-medium mt-9 mb-4 scroll-mt-8 tracking-[0.01em] text-Kilimanjaro"
+            className="text-[22px] font-medium mt-9 mb-4 scroll-mt-8 tracking-[0.01em] text-Kilimanjaro"
           >
-            {children}
+            # {children}
           </h2>
         );
       },
@@ -60,7 +60,7 @@ export default function ArticleRenderer({ body }: ArticleRendererProps) {
         return (
           <h3
             id={id}
-            className="text-xl font-semibold text-gray-800 mt-8 mb-3 scroll-mt-24"
+            className="text-[17px] font-medium mt-8 mb-3 scroll-mt-24 tracking-[0.01em] text-Kilimanjaro/90"
           >
             {children}
           </h3>
@@ -68,7 +68,7 @@ export default function ArticleRenderer({ body }: ArticleRendererProps) {
       },
       // 一般段落 P
       normal: ({ children }) => (
-        <p className="mb-5 text-base leading-[1.85] text-Umber">{children}</p>
+        <p className="mb-5 text-[15px] leading-[1.85] text-Umber">{children}</p>
       ),
       blockquote: ({ children }) => (
         <blockquote className="my-7 px-6 py-4 rounded-xl text-sm leading-[1.85] bg-PeacefulWhite border-DinosaurEgg border-l-4 text-Umber italic">
@@ -79,39 +79,15 @@ export default function ArticleRenderer({ body }: ArticleRendererProps) {
     marks: {
       // 強調粗體
       strong: ({ children }) => (
-        <strong className="font-bold text-gray-900">{children}</strong>
+        <strong className="font-bold text-Kilimanjaro text-[15px] ">
+          {children}
+        </strong>
       ),
       // 程式碼標籤 `code`
       code: ({ children }) => (
-        <div className="mb-6 rounded-xl overflow-hidden border border-WoodBark">
-          <div className="flex items-center gap-2 px-4 py-2.5 bg-TwilightZone border-b-WoodBark">
-            <div
-              style={{
-                width: 10,
-                height: 10,
-                borderRadius: "50%",
-                backgroundColor: "#ff5f57",
-              }}
-            />
-            <div
-              style={{
-                width: 10,
-                height: 10,
-                borderRadius: "50%",
-                backgroundColor: "#febc2e",
-              }}
-            />
-            <div
-              style={{
-                width: 10,
-                height: 10,
-                borderRadius: "50%",
-                backgroundColor: "#28c840",
-              }}
-            />
-          </div>
+        <code className="px-1.5 py-0.5 mx-0.5 bg-CowMilk text-[#b85a3c] rounded text-[13px] font-mono break-keep border border-Kilimanjaro/5">
           {children}
-        </div>
+        </code>
       ),
     },
   };

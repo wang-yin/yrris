@@ -15,36 +15,30 @@ interface CustomQuestionBlock {
   example?: string;
 }
 
-export function getReadingTime(
-  body: (PortableTextBlock | CustomQuestionBlock)[],
-): number {
-  if (!body || !Array.isArray(body)) return 1;
+export function getReadingTime(body: PortableTextBlock[]) {
+  if (!body || body.length === 0) return { wordCount: 0, minutes: 1 };
 
-  let totalText = "";
+  // 1. 拼接全文字串
+  const allText = body
+    .filter((block) => block._type === "block")
+    .flatMap((block) => block.children || [])
+    .map((child) => (child as PortableTextSpan).text || "")
+    .join("");
 
-  body.forEach((block) => {
-    // 1. 處理一般的段落、標題文字 (block.children)
-    if (block._type === "block" && "children" in block && block.children) {
-      (block.children as PortableTextSpan[]).forEach((child) => {
-        if (child.text) {
-          totalText += child.text;
-        }
-      });
-    }
-    // 2. 處理我們自訂的 LeetCode 題目區塊 (questionBlock)
-    else if (block._type === "questionBlock") {
-      const qBlock = block as CustomQuestionBlock;
-      if (qBlock.description) totalText += qBlock.description;
-      if (qBlock.example) totalText += qBlock.example;
-    }
-    // 💡 提示：程式碼區塊 (myCodeBlock) 通常不納入文字閱讀字數計算，因為看扣得時間因人而異
-  });
+  // 2. 精準計算：中文字數 + 英文單字數
+  const chineseCount = (allText.match(/[\u4e00-\u9fa5]/g) || []).length;
+  const englishWords = allText
+    .replace(/[\u4e00-\u9fa5]/g, " ") // 把中文過濾掉換成空白
+    .split(/\s+/) // 用空白切開算單字
+    .filter((word) => word.length > 0).length;
 
-  // 計算總字數（移除前後空格）
-  const wordsCount = totalText.trim().length;
+  const totalWords = chineseCount + englishWords;
 
-  // 假設每分鐘閱讀 300 字，用 Math.ceil 無條件進位，最低 1 分鐘
-  const readingTime = Math.ceil(wordsCount / 300);
+  // 3. 統一以每分鐘 350 字計算（適合中英混雜的技術部落格）
+  const minutes = Math.max(1, Math.ceil(totalWords / 350));
 
-  return readingTime < 1 ? 1 : readingTime;
+  return {
+    wordCount: totalWords,
+    minutes: minutes,
+  };
 }

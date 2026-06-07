@@ -36,6 +36,8 @@
   --PaleOrange: #f3ede0;
   --SugarQuill: #ece5d6;
   --Kabul: #6b6256;
+  --CowMilk: #f0ece4;
+  --NobleCream: #e0d9cc;
 }
 
 @layer utilities {
@@ -99,6 +101,8 @@
   --color-PaleOrange: var(--PaleOrange);
   --color-SugarQuill: var(--SugarQuill);
   --color-Kabul: var(--Kabul);
+  --color-CowMilk: var(--CowMilk);
+  --color-NobleCream: var(--NobleCream);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

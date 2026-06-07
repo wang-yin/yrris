@@ -2,51 +2,66 @@
 
 import { MdOutlineFormatAlignLeft } from "react-icons/md";
 import { convertTextToId } from "./utils/articleHelpers";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import type { PortableTextBlock, PortableTextSpan } from "@portabletext/types";
 
 interface TOCItem {
   text: string;
   id: string;
-  level: "h2" | "h3";
+  level: "h2";
 }
 
 interface TableOfContentsProps {
   body: PortableTextBlock[];
+  publishedAt?: string; // 💡 新增：接收從 Sanity 傳過來的發布日期
+  wordCount: number;
+  readingTime: number;
 }
 
-export default function TableOfContents({ body }: TableOfContentsProps) {
+export default function TableOfContents({
+  body,
+  publishedAt,
+  wordCount,
+  readingTime,
+}: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>("");
 
-  const headings: TOCItem[] = (body || [])
-    .filter(
-      (block) =>
-        block._type === "block" && ["h2", "h3"].includes(block.style || ""),
-    )
-    .map((block) => {
-      // 💡 3. 將 child 斷言或標記為 PortableTextSpan (標準的 Sanity 文字子節點型別)
-      const text =
-        block.children
-          ?.map((child) => (child as PortableTextSpan).text)
-          .join("") || "";
+  // 💡 1. 擷取所有 H2 大標題
+  const headings: TOCItem[] = useMemo(() => {
+    return (body || [])
+      .filter((block) => block._type === "block" && block.style === "h2")
+      .map((block) => {
+        const text =
+          block.children
+            ?.map((child) => (child as PortableTextSpan).text)
+            .join("") || "";
 
-      const id = convertTextToId(text);
+        const id = convertTextToId(text);
 
-      return { text, id, level: block.style as "h2" | "h3" };
-    });
+        return { text, id, level: block.style as "h2" };
+      });
+  }, [body]);
+
+  // 💡 3. 格式化發布日期 (例如將 2026-06-06T00:00:00Z 轉成 2026-06-06)
+  const formattedDate = useMemo(() => {
+    if (!publishedAt) return "未知日期";
+    try {
+      const date = new Date(publishedAt);
+      return date.toISOString().split("T")[0];
+    } catch {
+      return publishedAt;
+    }
+  }, [publishedAt]);
 
   useEffect(() => {
     if (headings.length === 0) return;
 
-    // 1. 抓取文章內所有對應的標題 DOM 節點
     const headingElements = headings
       .map((h) => document.getElementById(h.id))
       .filter((el): el is HTMLElement => el !== null);
 
-    // 2. 建立交會監聽器
     const observer = new IntersectionObserver(
       (entries) => {
-        // 找出目前在畫面上半部最活躍的標題
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setActiveId(entry.target.id);
@@ -54,21 +69,19 @@ export default function TableOfContents({ body }: TableOfContentsProps) {
         });
       },
       {
-        // 🔍 微調這個 rootMargin 可以決定標題滾到畫面哪個高度時觸發發亮（-20% 代表畫面中上方觸發）
         rootMargin: "-20% 0px -60% 0px",
       },
     );
 
-    // 3. 開始綁定監聽
     headingElements.forEach((el) => el && observer.observe(el));
 
-    // 4. 清理機制
     return () => {
       headingElements.forEach((el) => el && observer.unobserve(el));
     };
   }, [headings]);
 
   if (headings.length === 0) return null;
+
   return (
     <aside className="hidden lg:block shrink-0 w-50 sticky top-10">
       <div className="flex items-center gap-2 mb-4 text-SmokingMirror">
@@ -84,18 +97,18 @@ export default function TableOfContents({ body }: TableOfContentsProps) {
             const isActive = activeId === heading.id;
 
             return (
-              <li
-                key={index}
-                className={heading.level === "h3" ? "pl-5" : "pl-0"}
-              >
+              <li key={index} className="pl-0">
                 <a
                   href={`#${heading.id}`}
-                  className={`relative text-left w-full transition-all duration-200 text-sm leading-6 ${isActive ? "text-Kilimanjaro font-medium" : "text-SmokingMirror font-normal"}`}
+                  className={`relative text-left w-full transition-all duration-200 text-sm leading-6 block ${
+                    isActive
+                      ? "text-Kilimanjaro font-medium"
+                      : "text-SmokingMirror font-normal"
+                  }`}
                 >
                   {isActive && (
                     <span className="w-px h-7/10 bg-Umber absolute -left-4 translate-y-1/2"></span>
                   )}
-                  {heading.level === "h3" ? "└ " : ""}
                   {heading.text}
                 </a>
               </li>
@@ -103,6 +116,24 @@ export default function TableOfContents({ body }: TableOfContentsProps) {
           })}
         </ul>
       </nav>
+
+      {/* 💡 4. 文章數據欄位調整 */}
+      <div className="mt-8 pt-5 text-xs space-y-2 border-t border-t-NobleCream text-ForgottenSandstone">
+        <div className="flex justify-between px-1">
+          <span>發布日期</span>
+          <span className="text-SmokingMirror font-mono">{formattedDate}</span>
+        </div>
+        <div className="flex justify-between px-1">
+          <span>文章字數</span>
+          <span className="text-SmokingMirror font-mono">{wordCount} 字</span>
+        </div>
+        <div className="flex justify-between px-1">
+          <span>閱讀時間</span>
+          <span className="text-SmokingMirror font-mono">
+            約 {readingTime} 分鐘
+          </span>
+        </div>
+      </div>
     </aside>
   );
 }

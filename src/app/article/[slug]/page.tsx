@@ -53,7 +53,7 @@ export default async function PostDetailPage({
     ? post.publishedAt.split("T")[0]
     : "未知日期";
 
-  const minutesToRead = getReadingTime(post.body);
+  const { minutes: minutesToRead, wordCount } = getReadingTime(post.body);
 
   return (
     // 💡 1. 移除最外層不必要的 flex，改用單純的區塊，由 max-w 全權控管大局
@@ -75,7 +75,12 @@ export default async function PostDetailPage({
         {/* 💡 2. 這裡才是真正的左右三欄三明治架構 (目錄 | 內文 | 右側對稱空欄) */}
         <div className="flex w-full gap-10 items-start mt-12">
           {/* ── 左側目錄 ── */}
-          <TableOfContents body={post.body} />
+          <TableOfContents
+            body={post.body}
+            publishedAt={post.publishedAt}
+            wordCount={wordCount}
+            readingTime={minutesToRead}
+          />
 
           {/* ── 主內容 ── */}
           {/* 💡 3. 關鍵修正：加上 w-full 與 lg:max-w 限制，確保字少時依然撐滿完整格局，字多時也不會擠壓 */}
@@ -191,7 +196,7 @@ export default async function PostDetailPage({
 
           {/* ── 右側對稱空白（維持主內容置中） ── */}
           {/* 💡 4. 這裡與左側的 TableOfContents 寬度互相呼應，確保中間的 article 永遠處於美學核心 */}
-          <div className="hidden lg:block shrink-0 w-50" />
+          <div className="hidden lg:block shrink-0 w-10" />
         </div>
       </div>
     </div>
