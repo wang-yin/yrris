@@ -58,7 +58,7 @@ export default async function Home() {
                 <EnvelopeCard
                   key={article._id || articleSlug || index}
                   title={article.title}
-                  date={article.date}
+                  date={article.publishedAt}
                   category={article.category || "未分類"}
                   position={index % 2 === 0 ? "left" : "right"}
                   slug={article.slug}

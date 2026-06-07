@@ -7,6 +7,7 @@ export interface PostSummary {
   category?: string;
   tags?: string[];
   excerpt?: string;
+  publishedAt: string;
 }
 
 export interface HomeCategoryData {

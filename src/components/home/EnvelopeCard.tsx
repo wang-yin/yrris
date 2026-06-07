@@ -2,7 +2,8 @@ import Link from "next/link";
 
 interface EnvelopeCardProps {
   title: string;
-  date: string;
+  date?: string;
+  publishedAt?: string;
   category: string;
   position: "left" | "right";
   slug: string;
@@ -11,11 +12,13 @@ interface EnvelopeCardProps {
 export default function EnvelopeCard({
   title,
   date,
+  publishedAt,
   category,
   position,
   slug,
 }: EnvelopeCardProps) {
-  const dateString = date ? date.split("T")[0] : "2026-01-01";
+  const rawDate = date || publishedAt;
+  const dateString = rawDate ? rawDate.split("T")[0] : "---- -- --";
   const [year, month, day] = dateString.split("-");
   return (
     <Link href={`/article/${slug}`} className="block">
@@ -24,9 +27,11 @@ export default function EnvelopeCard({
       >
         {/* 日期郵戳 */}
         <div className="relative flex h-24 w-24 shrink-0 flex-col items-center justify-center rounded-full border-[3px] border-dashed border-[#d4ccba] bg-[#e8e0cf]">
-          <div className="text-xs text-[#8a8272]">{year}</div>
-          <div className="text-sm text-[#8a8272]">
-            {month}/{day}
+          <div className="text-xs text-[#8a8272] font-mono">
+            {year || "----"}
+          </div>
+          <div className="text-sm text-[#8a8272] font-mono">
+            {month && day ? `${month}/${day}` : "??/??"}
           </div>
 
           {/* 郵戳裝飾中線 */}
