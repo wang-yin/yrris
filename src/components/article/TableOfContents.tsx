@@ -69,7 +69,7 @@ export default function TableOfContents({
         });
       },
       {
-        rootMargin: "-20% 0px -60% 0px",
+        rootMargin: "-48px 0px -65% 0px",
       },
     );
 
