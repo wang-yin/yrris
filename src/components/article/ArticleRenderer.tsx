@@ -25,15 +25,23 @@ export default function ArticleRenderer({ body }: ArticleRendererProps) {
     },
     list: {
       bullet: ({ children }) => (
-        <ul className="mb-5 space-y-2.5">{children}</ul>
+        <ul className="list-disc pl-6 my-4 space-y-3 text-Molasses leading-7">
+          {children}
+        </ul>
+      ),
+      number: ({ children }) => (
+        <ol className="list-decimal pl-6 my-4 space-y-3 text-Molasses leading-7">
+          {children}
+        </ol>
       ),
     },
     listItem: {
       bullet: ({ children }) => (
-        <li className="flex items-start gap-3 text-[15px] leading-[1.75] text-Umber">
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-DinosaurEgg mt-2.5 shrink-0"></span>
-          {children}
-        </li>
+        // marker:text-BuffIt 可以幫你的 bullet 點點染上漂亮的和風大地方塊色，細節感滿滿
+        <li className="marker:text-BuffIt pl-1 text-[15px]">{children}</li>
+      ),
+      number: ({ children }) => (
+        <li className="marker:text-BuffIt pl-1 text-[15px]">{children}</li>
       ),
     },
     block: {
@@ -87,7 +95,7 @@ export default function ArticleRenderer({ body }: ArticleRendererProps) {
       ),
       // 程式碼標籤 `code`
       code: ({ children }) => (
-        <code className="px-1.5 py-0.5 mx-0.5 bg-CowMilk text-[#b85a3c] rounded text-[13px] font-mono break-keep border border-Kilimanjaro/5">
+        <code className="px-1.5 py-0.5 mx-0.5 bg-CowMilk text-[#b85a3c] rounded text-[13px] font-mono break-keep inline align-baseline border border-Kilimanjaro/5">
           {children}
         </code>
       ),
