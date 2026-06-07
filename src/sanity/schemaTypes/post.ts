@@ -66,6 +66,26 @@ export const postType = defineType({
       of: [
         { type: "block" },
         {
+          type: "object",
+          name: "videoFile",
+          title: "動態展示影片",
+          fields: [
+            {
+              name: "videoAsset",
+              title: "上傳影片檔案 (.mp4)",
+              type: "file",
+              options: {
+                accept: "video/mp4, video/webm", // 限制只能上傳影片格式
+              },
+            },
+            {
+              name: "caption",
+              title: "影片說明/標題 (選填)",
+              type: "string",
+            },
+          ],
+        },
+        {
           type: "code",
           name: "myCodeBlock",
           title: "程式碼區塊",

@@ -5,6 +5,7 @@ import type { PortableTextBlock } from "@portabletext/types";
 import CodeBlock from "@/components/article/CodeBlock";
 import QuestionBlock from "@/components/article/QuestionBlock";
 import { convertTextToId } from "./utils/articleHelpers";
+import VideoBlock from "./VideoBlock";
 
 interface ArticleRendererProps {
   body: PortableTextBlock[];
@@ -20,6 +21,7 @@ export default function ArticleRenderer({ body }: ArticleRendererProps) {
     types: {
       myCodeBlock: ({ value }) => <CodeBlock value={value} />,
       questionBlock: ({ value }) => <QuestionBlock value={value} />,
+      videoFile: ({ value }) => <VideoBlock value={value} />,
     },
     list: {
       bullet: ({ children }) => (
