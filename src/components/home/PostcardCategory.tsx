@@ -62,7 +62,7 @@ export default function PostcardCategory({
             {posts?.length || 0} 篇文章
           </p>
           <Link
-            href={`/article?category=${title}`}
+            href={`/article?type=category&filter=${title}`}
             className="absolute right-0 bottom-0 border-AlmondMilk text-Molasses rounded border-t border-l px-5 py-3 text-sm  cursor-pointer transition-all duration-300 hover:translate-x-1 hover:translate-y-1 hover:border hover:bg-white hover:shadow-xl"
           >
             查看更多
