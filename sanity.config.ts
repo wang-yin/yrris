@@ -13,6 +13,7 @@ import { codeInput } from "@sanity/code-input";
 import { apiVersion, dataset, projectId } from "./src/sanity/env";
 import { schema } from "./src/sanity/schemaTypes";
 import { structure } from "./src/sanity/structure";
+import { presentationTool } from "sanity/presentation";
 
 export default defineConfig({
   basePath: "/studio",
@@ -26,5 +27,12 @@ export default defineConfig({
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
     codeInput(),
+    presentationTool({
+      previewUrl: {
+        previewMode: {
+          enable: "/api/draft", // 對應我們剛剛寫的 API
+        },
+      },
+    }),
   ],
 });

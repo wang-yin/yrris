@@ -1,5 +1,3 @@
-export const revalidate = 0;
-
 import PostcardCategory from "@/components/home/PostcardCategory";
 import EnvelopeCard from "@/components/home/EnvelopeCard";
 import {

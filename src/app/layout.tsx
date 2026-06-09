@@ -6,6 +6,7 @@ import Header from "@/components/layout/Header";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/article/utils/ScrollToTop";
+import { SanityLive } from "@/sanity/lib/live";
 
 const luoYan = Luoyan({
   src: "../../public/assets/fonts/ChenYuluoyan-Thin.ttf",
@@ -48,6 +49,7 @@ export default function RootLayout({
         </main>
         <ScrollToTop />
         <Footer />
+        <SanityLive />
       </body>
     </html>
   );
