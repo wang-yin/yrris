@@ -26,7 +26,7 @@ export default async function Home() {
         <div className="grow border-t border-gray-300"></div>
       </div>
 
-      <div className="grid h-90 grid-cols-1 gap-15 sm:grid-cols-2">
+      <div className="grid h-auto grid-cols-1 gap-10 sm:grid-cols-2">
         {categoriesData.map((category: HomeCategoryData) => (
           <PostcardCategory
             key={category._id}

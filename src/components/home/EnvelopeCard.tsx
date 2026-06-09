@@ -23,7 +23,7 @@ export default function EnvelopeCard({
   return (
     <Link href={`/article/${slug}`} className="block">
       <div
-        className={`flex items-center gap-8 ${position === "right" ? "flex-row-reverse" : ""}`}
+        className={`flex items-center gap-2 md:gap-5 lg:gap-8 ${position === "right" ? "flex-row-reverse" : ""}`}
       >
         {/* 日期郵戳 */}
         <div className="relative flex h-24 w-24 shrink-0 flex-col items-center justify-center rounded-full border-[3px] border-dashed border-[#d4ccba] bg-[#e8e0cf]">
@@ -39,7 +39,7 @@ export default function EnvelopeCard({
         </div>
 
         {/* 信封卡片 */}
-        <div className="group relative max-w-125 flex-1 cursor-pointer rounded-lg border border-[#d9d1c0] bg-[#ebe5d6] p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+        <div className="group relative max-w-125 min-w-0 flex-1 cursor-pointer rounded-lg border border-[#d9d1c0] bg-[#ebe5d6] p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
           {/* 信封頂部漸層裝飾 */}
           <div className="absolute top-0 right-0 left-0 h-0.75 bg-linear-to-r from-transparent via-[#d4ccba] to-transparent" />
 
@@ -49,14 +49,14 @@ export default function EnvelopeCard({
           </div>
 
           {/* 內容區 */}
-          <div className="pr-12">
+          <div className="pr-12 min-w-0">
             {/* 分類標籤 */}
             <div className="mb-3 inline-block rounded-full bg-[#d9d1c0] px-3 py-1 text-xs text-[#5a5446]">
               {category}
             </div>
 
             {/* 標題 */}
-            <h3 className="text-lg text-[#5a5446] transition-transform group-hover:translate-x-1">
+            <h3 className="md:text-lg text-sm text-[#5a5446] transition-transform group-hover:translate-x-1 truncate">
               {title}
             </h3>
 

@@ -20,12 +20,12 @@ export default function PostcardCategory({
   return (
     // 1. 確保最外層有 perspective 和 transform-style-3d
     <div
-      className="perspective-1000 transform-style-3d relative h-full w-full"
+      className="perspective-1000 transform-style-3d relative min-h-62.5 w-full"
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
     >
       <div
-        className={`bg-SugarQuill transform-style-3d relative h-full w-full rounded-md border border-gray-300 transition-transform duration-700 ${isFlipped ? "rotate-y-180" : ""}`}
+        className={`bg-SugarQuill transform-style-3d relative min-h-85 w-full rounded-md border border-gray-300 transition-transform duration-700 ${isFlipped ? "rotate-y-180" : ""}`}
       >
         {/* 正面：翻轉後 z-index 變低，且隱藏背面 */}
         <div
@@ -47,7 +47,7 @@ export default function PostcardCategory({
           style={{ transform: "rotateY(180deg) translateZ(1px)" }} // 關鍵：用 translateZ(1px) 讓它在 3D 空間中浮出來
         >
           <div className="mt-6 ml-3 text-xl">{title}</div>
-          <div className="grid grid-cols-2 grid-rows-3 gap-x-4 gap-y-12 p-6">
+          <div className="grid md:grid-cols-2 grid-rows-6 md:grid-rows-3 md:gap-x-4 lg:gap-x-20 gap-y-3 md:gap-y-12 p-6 ">
             {posts.map((post) => (
               <Link
                 key={post.slug}
@@ -58,7 +58,7 @@ export default function PostcardCategory({
               </Link>
             ))}
           </div>
-          <p className="p-4 text-xs text-gray-400">
+          <p className="absolute left-0 bottom-0 p-4 text-xs text-gray-400">
             {posts?.length || 0} 篇文章
           </p>
           <Link
