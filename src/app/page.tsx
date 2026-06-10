@@ -52,7 +52,7 @@ export default async function Home() {
             latestArticles.map((article: PostSummary, index: number) => {
               const articleSlug =
                 typeof article.slug === "object"
-                  ? (article.slug as any).current
+                  ? (article.slug as any)?.current
                   : article.slug;
               return (
                 <EnvelopeCard

@@ -1,5 +1,6 @@
 import { client } from "./client";
 import { sanityFetch } from "./live";
+import { PostDetail } from "@/types/blog";
 
 export async function getPosts() {
   const query = `*[_type == "post"] | order(publishedAt desc) {
@@ -70,21 +71,14 @@ export async function getAllArticlesForArchive() {
 
   const { data } = await sanityFetch({
     query,
-    // 如果沒有變數，params 可以省略不寫
-    // 💡 繼承你原本的 Next.js 15 快取優化設定
-    config: {
-      next: {
-        revalidate: 60, // 生產環境快取 60 秒
-        tags: ["posts"], // 快取標籤
-      },
-    },
+    tags: ["posts"],
   });
 
   return data || [];
 }
 
 // 2. 根據 slug 取得文章詳細內容（包含前後篇）
-export async function getPostDetail(slug: string) {
+export async function getPostDetail(slug: string): Promise<PostDetail | null> {
   const query = `*[_type == "post" && slug.current == $slug][0]{
     _id,
     title,
@@ -113,5 +107,5 @@ export async function getPostDetail(slug: string) {
     params: { slug }, // 帶入查詢變數
   });
 
-  return data; // 回傳單篇文章物件（若找不到則為 null）
+  return data as PostDetail | null; // 回傳單篇文章物件（若找不到則為 null）
 }

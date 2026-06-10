@@ -20,6 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   try {
     const article = await getPostDetail(slug);
+    console.log("article: ", article);
 
     if (article?.title) {
       return {

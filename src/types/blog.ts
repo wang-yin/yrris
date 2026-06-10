@@ -16,3 +16,27 @@ export interface HomeCategoryData {
   slug: string | null;
   posts: PostSummary[];
 }
+
+export interface PostDetail {
+  _id: string;
+  title: string;
+  slug: string;
+  publishedAt: string;
+  mainImage?: any;
+  categories: string[];
+  tags: string[];
+  body: any[];
+  excerpt: string;
+
+  prev: {
+    title: string;
+    slug: string;
+    publishedAt: string;
+  } | null;
+
+  next: {
+    title: string;
+    slug: string;
+    publishedAt: string;
+  } | null;
+}

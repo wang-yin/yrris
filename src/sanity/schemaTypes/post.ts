@@ -98,6 +98,7 @@ export const postType = defineType({
               { title: "Python", value: "python" },
               { title: "CSS", value: "css" },
               { title: "HTML", value: "html" },
+              { title: "Bash", value: "bash" },
             ],
           },
         },
