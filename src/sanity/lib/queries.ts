@@ -27,8 +27,7 @@ export async function getLatestArticles() {
   // 改用 sanityFetch 包裹
   const { data } = await sanityFetch({
     query,
-    // 如果你有使用到 params，可以這樣傳（沒有的話可以不寫）
-    // params: {}
+    tags: ["posts"],
   });
 
   return data;
