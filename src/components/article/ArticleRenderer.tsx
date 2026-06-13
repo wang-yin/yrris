@@ -6,6 +6,7 @@ import CodeBlock from "@/components/article/CodeBlock";
 import QuestionBlock from "@/components/article/QuestionBlock";
 import { convertTextToId } from "./utils/articleHelpers";
 import VideoBlock from "./VideoBlock";
+import MermaidChart from "./MermaidChart";
 
 interface ArticleRendererProps {
   body: PortableTextBlock[];
@@ -19,7 +20,12 @@ export default function ArticleRenderer({ body }: ArticleRendererProps) {
   // 客製化 Sanity 的區塊渲染規則
   const myComponents: PortableTextComponents = {
     types: {
-      myCodeBlock: ({ value }) => <CodeBlock value={value} />,
+      myCodeBlock: ({ value }) => {
+        if (value.language === "mermaid") {
+          return <MermaidChart chartCode={value.code} />;
+        }
+        return <CodeBlock value={value} />;
+      },
       questionBlock: ({ value }) => <QuestionBlock value={value} />,
       videoFile: ({ value }) => <VideoBlock value={value} />,
     },

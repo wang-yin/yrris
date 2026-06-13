@@ -92,6 +92,7 @@ export const postType = defineType({
           options: {
             withFilename: true, // 允許你輸入該檔案的名稱（例如：solution.cpp）
             languageAlternatives: [
+              { title: "Mermaid 圖表", value: "mermaid" },
               { title: "C++", value: "cpp" },
               { title: "JavaScript", value: "javascript" },
               { title: "TypeScript", value: "typescript" },
